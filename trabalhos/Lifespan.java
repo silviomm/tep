@@ -13,7 +13,7 @@ public class Lifespan {
 		years.add("80 120");
 		years.add("101 103");
 		years.add("90 102");
-		
+
 		alg1(years);
 		alg2(years);
 	}
@@ -21,7 +21,7 @@ public class Lifespan {
 	/*
 	 * Algoritmo 1: Complexidade O(l*n + L) 
 	 	* L := tamanho do range de anos (ano_max - ano_min) 
-	 	* l := range máximo vivido por alguma pessoa 
+	 	* l := range mï¿½ximo vivido por alguma pessoa 
 	 	* n := uma lista com n pares (timestamp_nascimento, timestamp_morte)
 	 */
 	private static void alg1(List<String> years) {
