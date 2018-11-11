@@ -7,13 +7,9 @@ public class CoinSimulator {
 	public static void main(String[] args) {
 
 		run(1);
-		System.out.println("---------------------");
 		run(10);
-		System.out.println("---------------------");
 		run(50);
-		System.out.println("---------------------");
 		run(66);
-		System.out.println("---------------------");
 		run(100);
 
 	}
@@ -26,14 +22,15 @@ public class CoinSimulator {
 			fiveHeads += result[0];
 			twoConsucutiveHeads += result[1];
 		}
-		print(size, prob, fiveHeads, twoConsucutiveHeads);
+		printResult(size, prob, fiveHeads, twoConsucutiveHeads);
 	}
 
-	public static void print(int size, int prob, int fiveHeads, int twoConsucutiveHeads) {
+	public static void printResult(int size, int prob, int fiveHeads, int twoConsucutiveHeads) {
 		System.out.println("Probabilidade(cara): " + prob + "%");
 		System.out.println("Número de simulações: " + size);
 		System.out.println("Média para sair 5 caras: " + ((float) fiveHeads / size));
 		System.out.println("Média para sair 2 caras consecutivas: " + ((float) twoConsucutiveHeads / size));
+		System.out.println("---------------------");
 	}
 
 	public static int[] sim(int prob) {
