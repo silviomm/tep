@@ -1,3 +1,5 @@
+package trabalhos;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +21,9 @@ public class Lifespan {
 	}
 
 	/*
-	 * Algoritmo 1: Complexidade O(l*n + L) 
-	 	* L := tamanho do range de anos (ano_max - ano_min) 
-	 	* l := range m�ximo vivido por alguma pessoa 
-	 	* n := uma lista com n pares (timestamp_nascimento, timestamp_morte)
+	 * Algoritmo 1: Complexidade O(l*n + L) L := tamanho do range de anos (ano_max -
+	 * ano_min) l := range m�ximo vivido por alguma pessoa n := uma lista com n
+	 * pares (timestamp_nascimento, timestamp_morte)
 	 */
 	private static void alg1(List<String> years) {
 
@@ -55,8 +56,8 @@ public class Lifespan {
 	}
 
 	/*
-	 * Algoritmo 2: Complexidade O(n log n)
-	 	* n := uma lista com n pares (timestamp_nascimento, timestamp_morte)
+	 * Algoritmo 2: Complexidade O(n log n) n := uma lista com n pares
+	 * (timestamp_nascimento, timestamp_morte)
 	 */
 	private static void alg2(List<String> years) {
 		List<String> sortedYears = new ArrayList<>();
@@ -77,21 +78,23 @@ public class Lifespan {
 		int numberOfPeople = 0;
 		int mostLivedYear = 0;
 		int alive = 0;
-		
-		for(String date : sortedYears) {
+
+		for (String date : sortedYears) {
 			int year = Integer.parseInt(date.split(" ")[0]);
 			String id = date.split(" ")[1];
-			
-			if(id.equals("+"))	alive++;
-			else	alive--;
-			
-			if(alive > numberOfPeople) {
+
+			if (id.equals("+"))
+				alive++;
+			else
+				alive--;
+
+			if (alive > numberOfPeople) {
 				numberOfPeople = alive;
 				mostLivedYear = year;
 			}
-			
+
 		}
-		
+
 		System.out.println(mostLivedYear);
 	}
 }

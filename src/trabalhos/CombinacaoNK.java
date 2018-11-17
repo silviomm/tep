@@ -1,4 +1,4 @@
-package tep.trabalhos;
+package trabalhos;
 
 import java.util.HashSet;
 import java.util.Set;

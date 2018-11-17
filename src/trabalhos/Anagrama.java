@@ -1,4 +1,4 @@
-package testes;
+package trabalhos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ public class Anagrama {
 
 	public static void main(String[] args) {
 
-		String word = "bpag";
+		String word = "arara";
 
 		backtrack(new ArrayList<>(), word, 0, createWordMap(word), false, ' ');
 	}
