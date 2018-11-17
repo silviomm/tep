@@ -8,8 +8,47 @@ public class DiceSimulator {
 
 		int n = 6;
 		int numberOfSimulations = 1_000_000;
-		float[] probs = createArrayOfProbabilities(n);
+		float[] probs = new float[n];
+
+		probs = createUniformDistribution(n);
 		run(numberOfSimulations, n, probs);
+
+		probs = aleatory(n);
+		run(numberOfSimulations, n, probs);
+	}
+
+	// Cria array com distribuição uniforme
+	public static float[] createUniformDistribution(int n) {
+		float[] probs = new float[n];
+		for (int i = 0; i < n; i++) {
+			probs[i] = (float) 1 / n;
+		}
+		return probs;
+	}
+
+	/*
+	 * Cria array com distribuição aleatória Ex do que pode ser gerado(com 6 lados):
+	 * Contagem primeiro 'for': [36,4,3,7,0,10] Probabilidade gerada: [0.6, 0.066,
+	 * 0.05, 0.1166, 0, 0.166] Onde: [0.6 + 0.066 + 0.05 + 0.1166 + 0 + 0.166 ~= 1]
+	 * Como o nextInt() gera uniformemente, as probabilidades podem não variar tanto
+	 * assim. O que se pode fazer é mexer no multFactor, que quanto maior, mais
+	 * uniforme será a distribuição
+	 */
+	public static float[] aleatory(int n) {
+		int multFactor = 5;
+		float[] result = new float[n];
+
+		int aux;
+		for (int i = 0; i < n * multFactor; i++) {
+			aux = randInRangeOf(n);
+			result[aux]++;
+		}
+
+		for (int i = 0; i < n; i++) {
+			result[i] = result[i] / (n * multFactor);
+		}
+
+		return result;
 	}
 
 	public static void run(int size, int n, float[] probs) {
@@ -18,11 +57,19 @@ public class DiceSimulator {
 			a += threeInARow(n, probs);
 			b += twoPairsInARow(n, probs);
 		}
-		printResult(a, b, size);
+		printResult(a, b, size, probs);
 	}
 
-	private static void printResult(int three, int two, int size) {
+	private static void printResult(int three, int two, int size, float[] probs) {
 		System.out.println("Number of simulations: " + size);
+
+		System.out.print("Probability array: [" + probs[0]);
+		for (int i = 1; i < probs.length; i++) {
+			System.out.print(", ");
+			System.out.print(probs[i]);
+		}
+		System.out.println("]");
+
 		System.out.println("Probability of 3 in a row: " + (float) three / size);
 		System.out.println("Probability of 2 pairs in a row: " + (float) two / size);
 		System.out.println("---------------");
@@ -49,7 +96,7 @@ public class DiceSimulator {
 	}
 
 	public static int roll(int n, float[] probs) {
-		float rand = rand();
+		float rand = floatRand();
 		float x = 0, y = 0;
 		int result = -1;
 		for (int i = 0; i < n; i++) {
@@ -63,15 +110,12 @@ public class DiceSimulator {
 		return result;
 	}
 
-	public static float[] createArrayOfProbabilities(int n) {
-		float[] probs = new float[n];
-		for (int i = 0; i < n; i++) {
-			probs[i] = (float) 1 / 6;
-		}
-		return probs;
+	public static int randInRangeOf(int n) {
+		Random rand = new Random();
+		return rand.nextInt(n);
 	}
 
-	public static float rand() {
+	public static float floatRand() {
 		Random rand = new Random();
 		return rand.nextFloat();
 	}
