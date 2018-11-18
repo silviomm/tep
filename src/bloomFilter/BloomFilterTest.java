@@ -1,27 +1,28 @@
 package bloomFilter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class BloomFilterTest {
+public class BloomFilterTest {
 
-	private BloomFilter<String> bf; 
-	
+	private BloomFilter<String> bbf;
+
 	@Before
-	public void initialize() {
-		this.bf = new BloomFilter<>(100, 5);
+	public void setUp() throws Exception {
+		this.bbf = new BasicBloomFilter<>(100, 5);
 	}
-	
+
 	@Test
-	void test() {
-		bf.add("oie");
-		bf.add("ola");
-		
-		System.out.println(bf.mightContain("oie"));
-		System.out.println(bf.mightContain("gdagadgadg"));
-		System.out.println(bf.mightContain("ola"));
+	public void verificaTresPalavrasBasicBloomFilterTest() {
+		this.bbf.add("oie");
+		this.bbf.add("ola");
+
+		assertTrue(this.bbf.mightContain("oie"));
+		assertTrue(this.bbf.mightContain("ola"));
+		assertFalse(this.bbf.mightContain("nao esta ai"));
 	}
 
 }
