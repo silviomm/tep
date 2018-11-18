@@ -1,6 +1,6 @@
 package bloomFilter;
 
-public class BasicBloomFilter<T> implements BloomFilter<T>{
+public class BasicBloomFilter<T> implements IBloomFilter<T>{
 
 	private int m;
 	private int k;

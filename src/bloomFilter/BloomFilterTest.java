@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class BloomFilterTest {
 
-	private BloomFilter<String> bbf;
+	private IBloomFilter<String> bbf;
 
 	@Before
 	public void setUp() throws Exception {
