@@ -1,13 +1,12 @@
 package bloomFilter;
 
-public class BasicBloomFilter<T> implements IBloomFilter<T>{
+public class BasicBloomFilter<T> implements IBloomFilter<T> {
 
-	private int m;
 	private int k;
 	private int[] filter;
+	private int n;
 
 	public BasicBloomFilter(int m, int k) {
-		this.m = m;
 		this.k = k;
 		this.filter = new int[m];
 	}
@@ -15,9 +14,14 @@ public class BasicBloomFilter<T> implements IBloomFilter<T>{
 	private int[] getHashes(T elem) {
 		int[] result = new int[this.k];
 		for (int i = 0; i < this.k; i++) {
-			result[i] = Math.abs(elem.hashCode() * i) % this.m;
+			result[i] = Math.abs(elem.hashCode() * i) % this.filter.length;
 		}
 		return result;
+	}
+
+	@Override
+	public double getCurrentFalsePositiveProbability() {
+		return Math.pow((1 - Math.exp(-this.k * (double) this.n / (double) this.filter.length)), this.k);
 	}
 
 	@Override
@@ -31,11 +35,12 @@ public class BasicBloomFilter<T> implements IBloomFilter<T>{
 	}
 
 	@Override
-	public void add(T elem) {
+	public boolean add(T elem) {
 		int[] hashes = getHashes(elem);
 		for (int h : hashes) {
 			this.filter[h] = 1;
 		}
+		return true;
 	}
 
 }

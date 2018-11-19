@@ -8,21 +8,44 @@ import org.junit.Test;
 
 public class BloomFilterTest {
 
-	private IBloomFilter<String> bbf;
-
 	@Before
 	public void setUp() throws Exception {
-		this.bbf = new BasicBloomFilter<>(100, 5);
 	}
 
 	@Test
-	public void verificaTresPalavrasBasicBloomFilterTest() {
-		this.bbf.add("oie");
-		this.bbf.add("ola");
+	public void verificacaoBasicaBasicBloomFilterTest() {
+		IBloomFilter<String> bbf = new BasicBloomFilter<>(100, 5);
 
-		assertTrue(this.bbf.mightContain("oie"));
-		assertTrue(this.bbf.mightContain("ola"));
-		assertFalse(this.bbf.mightContain("nao esta ai"));
+		bbf.add("oie");
+		bbf.add("ola");
+
+		assertTrue(bbf.mightContain("oie"));
+		assertTrue(bbf.mightContain("ola"));
+	}
+
+	@Test
+	public void verificacaoBasicaOptimizedBloomFilterTest() {
+		OptmizedBloomFilter<String> obf = new OptmizedBloomFilter<>(2, 0.002);
+
+		obf.add("oie");
+		obf.add("ola");
+
+		assertTrue(obf.getCurrentFalsePositiveProbability() <= 0.002);
+
+		assertTrue(obf.mightContain("oie"));
+		assertTrue(obf.mightContain("ola"));
+	}
+
+	@Test
+	public void naoDeixaAdicionarSeForUltrapassarProbabilidadeDeFalsosPositivosDesejadaTest() {
+		OptmizedBloomFilter<String> obf = new OptmizedBloomFilter<>(1, 0);
+
+		assertTrue(obf.getCurrentFalsePositiveProbability() <= 0);
+
+		assertTrue(obf.add("oie"));
+		assertFalse(obf.add("ola"));
+		
+		assertTrue(obf.getCurrentFalsePositiveProbability() <= 0);
 	}
 
 }
