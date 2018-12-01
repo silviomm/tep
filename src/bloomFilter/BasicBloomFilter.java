@@ -13,14 +13,18 @@ public class BasicBloomFilter<T> implements IBloomFilter<T> {
 
 	private int[] getHashes(T elem) {
 		int[] result = new int[this.k];
-		for (int i = 0; i < this.k; i++) {
-			result[i] = Math.abs(elem.hashCode() * i) % this.filter.length;
+		for (int i = 1; i <= this.k; i++) {
+			result[i-1] = Math.abs(elem.hashCode() * i) % this.filter.length;
 		}
 		return result;
 	}
+	
+	public int getK() {
+		return this.k;
+	}
 
 	@Override
-	public double getCurrentFalsePositiveProbability() {
+	public double getCurrentFalsePositiveRate() {
 		return Math.pow((1 - Math.exp(-this.k * (double) this.n / (double) this.filter.length)), this.k);
 	}
 
@@ -40,6 +44,7 @@ public class BasicBloomFilter<T> implements IBloomFilter<T> {
 		for (int h : hashes) {
 			this.filter[h] = 1;
 		}
+		this.n++;
 		return true;
 	}
 

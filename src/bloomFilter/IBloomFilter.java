@@ -6,6 +6,8 @@ public interface IBloomFilter<T> {
 
 	public boolean add(T elem);
 
-	public double getCurrentFalsePositiveProbability();
+	public double getCurrentFalsePositiveRate();
+	
+	public int getK();
 
 }
