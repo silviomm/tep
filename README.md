@@ -1,4 +1,4 @@
-# Selected Topics in Computer Programming UFRJ 2018-2
+## Selected Topics in Computer Programming
 
 ### [Bloom Filter](src/bloomFilter)
 
